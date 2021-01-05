@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+def user_directory_path(instance, filename):
+    return 'blog/{0}/{1}'.format(instance.author.id, filename)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=60)
 
@@ -19,7 +23,8 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image = models.ImageField(upload_to="")
+    image = models.ImageField(
+        upload_to=user_directory_path, default='django.jpg')
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
