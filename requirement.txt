@@ -1,4 +1,9 @@
 asgiref==3.3.1
+autopep8==1.5.4
 Django==3.1.5
+Pillow==8.1.0
+pycodestyle==2.6.0
+python-decouple==3.4
 pytz==2020.5
 sqlparse==0.4.1
+toml==0.10.2
