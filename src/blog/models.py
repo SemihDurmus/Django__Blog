@@ -35,6 +35,16 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def comment_count(self):
+        return self.comment_set.all().count()
+        # comment points to comment class below, and _set links it to this class
+
+    def view_count(self):
+        return self.postview_set.all().count()
+
+    def like_count(self):
+        return self.like_set.all().count()
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
