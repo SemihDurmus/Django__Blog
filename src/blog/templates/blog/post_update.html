@@ -3,10 +3,14 @@
 
 {% block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">
+<h2>
+    Update {{ object.title }}
+</h2>
+
+<form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Submit</button>
+    <button type="submit">Update</button>
 </form>
 
 
