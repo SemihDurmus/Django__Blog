@@ -35,3 +35,10 @@
 33. Add update and delete posts as above
 34. Apply bootstrap starter template to base.html
 35. Create navbar.html under src/templates
+36. Include navbar in base.html
+37. Create folders static/blog under application (blog) and create main.css file. (This is sth django wants)
+38. Add main.css file's link to head section of base.html and add `{% load static %}` on top
+39. Edit settings.py `STATICFILES_DIRS = [BASE_DIR / "static"]`
+40. Apply a card style to post_list page with bootstrap.
+41. Get a kit script from fontawesome and apply to base.html to icons for comment, like and view
+42. Add functions to Post class in models.py to retrieve count of comments, likes and views
