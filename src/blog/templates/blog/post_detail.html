@@ -11,6 +11,16 @@
 <p>
     {{ object.content }}
 </p>
-
-
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
+</form> <br>
+{% for comment in object.comments %}
+<p>
+    Comment by {{ user }}
+</p>
+{{ comment.content }}
+<hr>
+{% endfor %}
 {% endblock content %}
