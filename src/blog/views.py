@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from .models import Post, Like
 from .forms import PostForm, CommentForm
 
@@ -48,6 +49,8 @@ def post_detail(request, slug):
 
 def post_update(request, slug):
     obj = get_object_or_404(Post, slug=slug)
+    if request.user.id != obj.author.id:
+        return HttpResponse("You are not authorized")
     form = PostForm(request.POST or None, request.FILES or None, instance=obj)
     if form.is_valid():
         form.save()
@@ -61,6 +64,8 @@ def post_update(request, slug):
 
 def post_delete(request, slug):
     obj = get_object_or_404(Post, slug=slug)
+    if request.user.id != obj.author.id:
+        return HttpResponse("You are not authorized")
     if request.method == "POST":
         obj.delete()
         return redirect("blog:list")
@@ -71,10 +76,12 @@ def post_delete(request, slug):
 
 
 def like(request, slug):
+
     if request.method == "POST":
         obj = get_object_or_404(Post, slug=slug)
         like_qs = Like.objects.filter(user=request.user, post=obj)
-        if like_qs.exists():
+
+        if like_qs:
             like_qs[0].delete()
         else:
             Like.objects.create(user=request.user, post=obj)
