@@ -26,8 +26,8 @@
 
 <form action="{% url 'blog:like' object.slug %}" method="POST">
     {% csrf_token %}
-    <input type="hidden" , name="post">
-    <input type="hidden" , name="user">
+    <input type="hidden" name="post">
+    <input type="hidden" name="user">
     <button type="submit">Like</button> {{ object.like_count }}
 </form>
 <hr>
