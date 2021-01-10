@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(label="Comment")
+    #content = forms.CharField(label="Comment")
 
     class Meta:
         model = Comment
