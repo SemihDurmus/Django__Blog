@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 #from django.http import HttpResponse
 from .models import Post, Like
 from .forms import PostForm, CommentForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def post_list(request):
@@ -12,6 +14,7 @@ def post_list(request):
     return render(request, "blog/post_list.html", context)
 
 
+@login_required
 def post_create(request):
     #form = PostForm(request.POST or None, request.FILES or None)
     form = PostForm()
@@ -22,6 +25,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            messages.success(request, "Post created successfully")
             return redirect("blog:list")
     context = {
         'form': form
@@ -47,14 +51,17 @@ def post_detail(request, slug):
     return render(request, "blog/post_detail.html", context)
 
 
+@login_required
 def post_update(request, slug):
     obj = get_object_or_404(Post, slug=slug)
     if request.user.id != obj.author.id:
+        messages.warning(request, "You are not the author")
         return redirect("blog:list")
-        # return HttpResponse("You are not authorized")
+
     form = PostForm(request.POST or None, request.FILES or None, instance=obj)
     if form.is_valid():
         form.save()
+        messages.success(request, "Post updated successfully")
         return redirect("blog:list")
     context = {
         'object': obj,
@@ -63,13 +70,16 @@ def post_update(request, slug):
     return render(request, "blog/post_update.html", context)
 
 
+@login_required
 def post_delete(request, slug):
     obj = get_object_or_404(Post, slug=slug)
     if request.user.id != obj.author.id:
+        messages.warning(request, "You are not the author")
         return redirect("blog:list")
         # return HttpResponse("You are not authorized")
     if request.method == "POST":
         obj.delete()
+        messages.success(request, "Post deleted")
         return redirect("blog:list")
     context = {
         "object": obj
@@ -77,6 +87,7 @@ def post_delete(request, slug):
     return render(request, "blog/post_delete.html", context)
 
 
+@login_required
 def like(request, slug):
 
     if request.method == "POST":
@@ -85,6 +96,8 @@ def like(request, slug):
 
         if like_qs:
             like_qs[0].delete()
+
         else:
             Like.objects.create(user=request.user, post=obj)
         return redirect('blog:detail', slug=slug)
+    return redirect('blog:detail', slug=slug)
