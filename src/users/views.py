@@ -7,7 +7,7 @@ def register(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # return redirect("login")
+        return redirect("login")
     context = {
         "form": form
     }

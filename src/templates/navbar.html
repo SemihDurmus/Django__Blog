@@ -18,7 +18,7 @@
                     <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                     <a class="nav-item nav-link" href="{% url 'blog:create' %}">New Post</a>
                     {% else %}
-                    <a class="nav-item nav-link" href="#">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                     <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                     {% endif %}
                 </div>
