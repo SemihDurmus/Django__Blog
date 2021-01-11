@@ -131,3 +131,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_ROOT = BASE_DIR / 'media_root'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = "blog:list"
