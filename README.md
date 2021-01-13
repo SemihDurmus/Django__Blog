@@ -1,4 +1,4 @@
-<h1 style="text-align:center">Making of Django Blog </h1>
+<h1 align="center">Making of Django Blog </h1>
 
 1. Create environment and activate it
     `python3 -m venv benv` and `source benv/bin/activate`
@@ -166,5 +166,9 @@ Then import PasswordResetEmailCheck to urls and overwrite the form class in the 
 ```python
 path(
     'password-reset/', 
-    auth_views.PasswordResetView.as_view(template_name='users/password_reset_email.html', form_class=PasswordResetEmailCheck), name='password_reset')
+    auth_views.PasswordResetView.as_view(
+        template_name='users/password_reset_email.html', 
+        form_class=PasswordResetEmailCheck), 
+        name='password_reset'
+    )
 ```
