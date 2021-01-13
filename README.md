@@ -2,9 +2,9 @@
 
 1. Create environment and activate it
     `python3 -m venv benv` and `source benv/bin/activate`
-2. Install django `pip3 install django` and python-decouple `python3 -m pip install python-decouple`
+2. Install django `pip3 install django`
 3. Create requirement.txt, .gitignore and .env files `pip freeze > requirements.txt` and start project `django-admin startproject cblog`
-4. Install decouple
+4. Install decouple `python3 -m pip install python-decouple`
 5. Move SECRET_KEY to .env and add the following to settings.py 
 ```
 from decouple import config
