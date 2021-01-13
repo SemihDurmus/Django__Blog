@@ -1,16 +1,24 @@
-# making of Django_Blog
+<h1 style="text-align:center">Making of Django Blog </h1>
 
 1. Create environment and activate it
-2. Install django
-3. Create requirement.txt, .gitignore and .env files
+    `python3 -m venv benv` and `source benv/bin/activate`
+2. Install django 
+    `pip3 install django`
+3. Create requirement.txt, .gitignore and .env files `pip freeze > requirements.txt` and start project `django-admin startproject cblog`
 4. Install decouple
-5. Move SECRET_KEY to .env and edit settigs.py 
-    * `from decouple import config` `SECRET_KEY = config('SECRET_KEY')`
+5. Move SECRET_KEY to .env and add the following to settings.py 
+```
+from decouple import config
+``` 
+and
+```
+SECRET_KEY = config('SECRET_KEY')
+```
 6. Change folder name to src and Start project
-7. Create an app and edit settings>INSTALLED_APPS
-8. Migrate
-9. Create superuser
-10. run server and check from browser
+7. Create an app `python3 manage.py startapp blog` and add this line to settings>INSTALLED_APPS   `'blog.apps.BlogConfig'`
+8. Migrate `python3 manage.py migrate`
+9. Create superuser `python3 manage.py createsuperuser`
+10. run server and check from browser `python3 manage.py runserver`
 11. Create model (Category and Post)
 12. Register the modelsin admin.py
 13. Install pillow and edit requirement.txt
@@ -25,7 +33,9 @@
 22. Create forms.py. Add PostForm and CommentForm
 23. Edit views -> post_list 
 24. Edit settings.py ->TEMPLATES 
-    * `'DIRS': [BASE_DIR, "templates"]`
+```
+'DIRS': [BASE_DIR, "templates"]
+```
 25. Create folder templates under src folder and create file base.html
 26. Create folders templates/blog under blog folder and create post_list.html
 27. Create post_list function in views, edit both urls.py files
@@ -41,7 +51,9 @@
 37. Create folders static/blog under application (blog) and create main.css file. (This is sth django wants)
 38. Add main.css file's link to head section of base.html and add `{% load static %}` on top
 39. Edit settings.py as 
-    * `STATICFILES_DIRS = [BASE_DIR / "static"]`
+```
+STATICFILES_DIRS = [BASE_DIR / "static"]
+```
 40. Apply a card style to post_list page with bootstrap.
 41. Get a kit script from fontawesome and apply to base.html to icons for comment, like and view
 42. Add functions to Post class in models.py to retrieve count of comments, likes and views
@@ -52,8 +64,12 @@
 47. Add an if statement to post_detail.html do display delete and update buttons. If the user is the author, he should see update & delete buttons for his own post
 48. Now the problem is that a user can reach delete & update pages to any post by typing the url path to address bar. A temporary solution below. After using authentication we will change the way we do it.
 49. Install HttpResponse from django.http in views and add an if statement to post_update and post_delete as 
-    * `if request.user.id != obj.author.id`
-    * `return HttpResponse("You are not authorized")`
+```python
+if request.user.id != obj.author.id
+    return HttpResponse("You are not authorized")
+```
+We will change this to a more advanced method soon.
+
 50. Install django-crispy-forms with pip and add crispy_forms to INSTALLED_APPS in settings.py. This third party app is for styling forms w bootstrap.
 51. Edit the detail, create, update and delete pages as follows: 
     * add `{% load crispy_forms_tags %}`
@@ -148,5 +164,7 @@ class PasswordResetEmailCheck(PasswordResetForm):
 ```
 Then import PasswordResetEmailCheck to urls and overwrite the form class in the password_reset path to change the default form django uses:
 ```python
-path('password-reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset_email.html', form_class=PasswordResetEmailCheck), name='password_reset')
+path(
+    'password-reset/', 
+    auth_views.PasswordResetView.as_view(template_name='users/password_reset_email.html', form_class=PasswordResetEmailCheck), name='password_reset')
 ```
