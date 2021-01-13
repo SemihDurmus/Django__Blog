@@ -3,7 +3,7 @@
 1. Create environment and activate it
     `python3 -m venv benv` and `source benv/bin/activate`
 2. Install django `pip3 install django`
-3. Create requirement.txt, .gitignore and .env files `pip freeze > requirements.txt` and start project `django-admin startproject cblog`
+3. Create requirements.txt `pip freeze > requirements.txt`, .gitignore and .env files.
 4. Install decouple `python3 -m pip install python-decouple`
 5. Move SECRET_KEY to .env and add the following to settings.py 
 ```
@@ -13,7 +13,7 @@ and
 ```
 SECRET_KEY = config('SECRET_KEY')
 ```
-6. Change folder name to src and Start project
+6. Change folder name to src and Start project `django-admin startproject cblog`
 7. Create an app `python3 manage.py startapp blog` and add this line to settings>INSTALLED_APPS   `'blog.apps.BlogConfig'`
 8. Migrate `python3 manage.py migrate`
 9. Create superuser `python3 manage.py createsuperuser`
